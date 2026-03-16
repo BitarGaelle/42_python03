@@ -39,5 +39,7 @@ def ft_inventory_system():
             if min > item:
                 min = item
         print(min)
+
+
 if __name__ == "__main__":
     ft_inventory_system()
