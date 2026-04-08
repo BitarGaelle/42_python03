@@ -5,28 +5,30 @@ def get_player_pos() -> tuple:
     valid = 0
     while valid == 0:
         try:
-            x, y, z = input("Enter new coordinates as floats in format \
+            coord = input("Enter new coordinates as floats in format \
 'x,y,z': ").split(",")
+            if len(coord) != 3:
+                raise ValueError("Invalid syntax")
             try:
-                x = float(x)
+                x = float(coord[0])
             except ValueError as v:
-                print(f"Error on parameter '{x}': {v}")
+                print(f"Error on parameter '{coord[0]}': {v}")
                 continue  # stop this iter and go back to the start of the loop
             try:
-                y = float(y)
+                y = float(coord[1])
             except ValueError as v:
-                print(f"Error on parameter '{y}': {v}")
+                print(f"Error on parameter '{coord[1]}': {v}")
                 continue
             try:
-                z = float(z)
+                z = float(coord[2])
             except ValueError as v:
-                print(f"Error on parameter '{z}': {v}")
+                print(f"Error on parameter '{coord[2]}': {v}")
                 continue
-            coord = (x, y, z)
+            coord2 = (x, y, z)
             valid = 1
-        except ValueError:
-            print("Invalid syntax")
-    return coord
+        except ValueError as V:
+            print(f"{V}")
+    return coord2
 
 
 def ft_coordinate_system() -> None:

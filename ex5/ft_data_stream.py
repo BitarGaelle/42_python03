@@ -1,33 +1,39 @@
-def ft_data_stream():
-    names = ["alice", "bob", "charlie", "Nova", "Echo", "Aelion", "Draknor"]
-    actions = ["killed a monster", "found treasure", "leveled up",
-               "slayed a dragon", "frootie patootie"]
+import random
+from typing import Generator
 
-    def generator():
-        total_events = 0
-        high_level = 0
-        treasure = 0
-        level_up = 0
-        for i in range(1000):
-            name_choice = names[i % len(names)]
-            action_choice = actions[i % len(actions)]
-            level = (i % 20) + 1
-            total_events += 1
-            if level >= 10:
-                high_level += 1
-            if action_choice == "found treasure":
-                treasure += 1
-            if action_choice == "leveled up":
-                level_up += 1
-            yield f"Event {i+1}: Player {name_choice} \
-(level {level}) {action_choice}"
 
-    gen = generator()
-    print(next(gen))
-    print(next(gen))
-    print(next(gen))
-    print("...")
+def gen_event() -> Generator[tuple, None, None]:
+    names = ['alice', 'bob', 'charlie', 'dylan']
+    actions = ['run', 'eat', 'sleep', 'grab', 'move', 'climb', 'swim', 
+               'release']
+
+    while True:
+        name = random.choice(names)
+        action = random.choice(actions)
+        yield (name, action)
+
+
+def consume_event(name_action_list: list) -> Generator[tuple, None, None]:
+    while name_action_list:
+        tuple_picked = random.choice(name_action_list)
+        name_action_list.remove(tuple_picked)
+        yield tuple_picked
 
 
 if __name__ == "__main__":
-    ft_data_stream()
+    print("=== Game Data Stream Processor ===")
+    generator = gen_event()
+    for i in range(1000):
+        name, action = next(generator)
+        print(f"Event {i}: Player {name} did action {action}")
+
+    events_list = []
+    name_action = ()
+    for i in range(10):
+        name, action = next(generator)
+        events_list.append((name, action))
+    print(f"Built list of 10 events: {events_list}")
+
+    for event in consume_event(events_list):
+        print(f"Got event from list: {event}")
+        print(f"Remains in list: {events_list}")
