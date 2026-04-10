@@ -4,7 +4,7 @@ from typing import Generator
 
 def gen_event() -> Generator[tuple, None, None]:
     names = ['alice', 'bob', 'charlie', 'dylan']
-    actions = ['run', 'eat', 'sleep', 'grab', 'move', 'climb', 'swim', 
+    actions = ['run', 'eat', 'sleep', 'grab', 'move', 'climb', 'swim',
                'release']
 
     while True:

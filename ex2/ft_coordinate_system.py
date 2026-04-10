@@ -1,7 +1,7 @@
 import math
 
 
-def get_player_pos() -> tuple:
+def get_player_pos() -> tuple[float, float, float]:
     valid = 0
     while valid == 0:
         try:

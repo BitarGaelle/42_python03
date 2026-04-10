@@ -26,9 +26,10 @@ def ft_inventory_system() -> None:
                 continue
             inventory[key] = value
             quantity_value += value
-        print(f"Got inventory: {inventory}")
         if not inventory:
             print("The inventory is empty!")
+            return
+        print(f"Got inventory: {inventory}")
         inventory_list = list(inventory)
         print(f"Item list: {inventory_list}")
 
@@ -37,9 +38,13 @@ def ft_inventory_system() -> None:
 {quantity_value}")
 
         for item in inventory.keys():
-            quant = inventory[item]
-            rate = (quant/quantity_value)*100
-            print(f"Item {item} represents {rate:.1f}%")
+            try:
+                quant = inventory[item]
+                rate = (quant/quantity_value)*100
+                print(f"Item {item} represents {rate:.1f}%")
+            except ZeroDivisionError as z:
+                print(f"Error: {z}")
+                return
 
         max_item = inventory_list[0]
         max_value = inventory[max_item]
